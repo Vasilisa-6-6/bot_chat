@@ -1,4 +1,6 @@
 import telebot
+import random
+import os
 from bot_logik import gen_passssssss, uwiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiikeiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
 
 
@@ -17,7 +19,7 @@ text_messages = {
         u'Не отправлять не цензурные фото\n'}
 
 
-kommands = ['/bye','/password','/keyboard','/start','/hello','/heh','/help']
+kommands = ['/bye','/password','/keyboard','/start','/hello','/heh','/help','/mem']
 
 # @bot.message_handler(commands=['start'])
 # def send_welcome(message):
@@ -48,6 +50,13 @@ def send_bye(message):
     bot.reply_to(message, 'Вот мои команды:')
     for po in range(len(kommands)):
         bot.reply_to(message, kommands[po])
+
+@bot.message_handler(commands=['mem'])
+def send_mem(message):
+    lelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelele = os.listdir('images')
+    with open(f'images/{random.choice(lelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelele)}', 'rb') as upi:
+        bot.send_photo(message.chat.id, upi)
+
 
 @bot.message_handler(commands=['password'])
 def sennd_pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaassssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss(message):
