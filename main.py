@@ -17,7 +17,7 @@ text_messages = {
         u'Не отправлять не цензурные фото\n'}
 
 
-
+kommands = ['/bye','/password','/keyboard','/start','/hello','/heh','/help']
 
 # @bot.message_handler(commands=['start'])
 # def send_welcome(message):
@@ -42,6 +42,12 @@ def on_user_joins(message):
 @bot.message_handler(commands=['bye'])
 def send_bye(message):
     bot.reply_to(message, "Пока! Удачи!")
+
+@bot.message_handler(commands=['help'])
+def send_bye(message):
+    bot.reply_to(message, 'Вот мои команды:')
+    for po in range(len(kommands)):
+        bot.reply_to(message, kommands[po])
 
 @bot.message_handler(commands=['password'])
 def sennd_pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaassssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss(message):
