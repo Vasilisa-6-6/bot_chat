@@ -19,7 +19,7 @@ text_messages = {
         u'Не отправлять не цензурные фото\n'}
 
 
-kommands = ['/bye','/password','/keyboard','/start','/hello','/heh','/help','/mem']
+kommands = ['/bye','/password','/keyboard','/start','/hello','/heh','/help','/mem','/cheremsha']
 
 # @bot.message_handler(commands=['start'])
 # def send_welcome(message):
@@ -57,6 +57,11 @@ def send_mem(message):
     with open(f'images/{random.choice(lelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelele)}', 'rb') as upi:
         bot.send_photo(message.chat.id, upi)
 
+@bot.message_handler(commands=['cheremsha'])
+def sennd_cheremsha(message):
+    bot.reply_to(message, 'Для здоровья малыша')
+    with open('images/черемша.jpg', 'rb') as cherem:
+        bot.send_photo(message.chat.id,  cherem)
 
 @bot.message_handler(commands=['password'])
 def sennd_pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaassssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss(message):
@@ -76,7 +81,7 @@ def send_heh(message):
     count_heh = int(message.text.split()[1]) if len(message.text.split()) > 1 else 5
     bot.reply_to(message, "he" * count_heh)
 
-@bot.message_handler(func=lambda message: True)
+@bot.message_handler(func=lambda message: True) # отвечает на просто сообщения можно поставить услоаие на конкретное сообщение
 def echo_all(message):
     bot.reply_to(message, message.text)
     # Обработчик команды '/start' и '/hello'
