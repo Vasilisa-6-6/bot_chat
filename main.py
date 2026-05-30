@@ -2,7 +2,7 @@ import telebot
 import random
 import os
 from bot_logik import gen_passssssss, uwiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiikeiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
-
+from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
 
@@ -19,7 +19,7 @@ text_messages = {
         u'Не отправлять не цензурные фото\n'}
 
 
-kommands = ['/bye','/password','/keyboard','/start','/hello','/heh','/help','/mem','/cheremsha']
+kommands = ['/bye','/password','/keyboard','/start','/hello','/heh','/help','/mem','/cheremsha','/game']
 
 # @bot.message_handler(commands=['start'])
 # def send_welcome(message):
@@ -28,6 +28,26 @@ kommands = ['/bye','/password','/keyboard','/start','/hello','/heh','/help','/me
 # @bot.message_handler(commands=['hello'])
 # def send_hello(message):
 #     bot.reply_to(message, "Привет! Как дела?")
+
+
+otxo = ['Макулатура', 'Железная палка', 'Бутылка для воды', 'Стеклянная банка', 'Огрызок яблока']
+
+game_otvet = ''
+count = 0
+num = 0
+
+
+def game_help():
+    game_helper = InlineKeyboardMarkup()
+    game_helper.row_width = 5
+    game_helper.add(InlineKeyboardButton('Несортируемые', callback_data='cb_sor'),
+                    InlineKeyboardButton('Бумага', callback_data='cb_pap'),
+                    InlineKeyboardButton('Пластик', callback_data='cb_pla'),
+                    InlineKeyboardButton('Стекло', callback_data='cb_ste'),
+                    InlineKeyboardButton('Металл', callback_data='cb_met'))
+    return game_helper
+
+
 @bot.message_handler(func=lambda m: True, content_types=['new_chat_members'])
 def on_user_joins(message):
 
@@ -56,6 +76,39 @@ def send_mem(message):
     lelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelele = os.listdir('images')
     with open(f'images/{random.choice(lelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelelele)}', 'rb') as upi:
         bot.send_photo(message.chat.id, upi)
+
+@bot.message_handler(commands=['game'])
+def sennd_game(message):
+    global count, game_otvet, num
+    bot.reply_to(message, 'Приветствую в игре про сортировку мусора!\nПравила игры: \nЯ называю отход \nВы отвечаете какой это отход из предложенных вариантов \nЯ говорю правильно или нет \nТы можешь несколько раз написать команду и несколько раз поиграть! \nВ 1-ой игре 1 отход')
+    count = 0
+    num = 0
+    otxod = random.choice(otxo)
+    if otxod == otxo[0]:
+        game_otvet = 'cb_pap'
+    elif otxod == otxo[1]:
+        game_otvet = 'cb_met'
+    elif otxod == otxo[2]:
+        game_otvet = 'cb_pla'
+    elif otxod == otxo[3]:
+        game_otvet = 'cb_ste'
+    elif otxod == otxo[4]:
+        game_otvet = 'cb_sor'
+    
+    bot.send_message(message.chat.id, otxod, reply_markup=game_help())  
+
+
+@bot.callback_query_handler(func=lambda call: True)
+def callback_query(call):
+    global count, game_otvet, num
+    if call.data == game_otvet:
+        bot.answer_callback_query(call.id, "Правильно")
+        count += 1
+        num += 1
+    else:
+        bot.answer_callback_query(call.id, "Неправильно")
+
+
 
 @bot.message_handler(commands=['cheremsha'])
 def sennd_cheremsha(message):
